@@ -1,5 +1,6 @@
 package com.openbootcamp;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.sql.Array;
@@ -11,6 +12,9 @@ public class Main {
     public static void main(String[] args) {
 
         String saludo = "Hola Neru";
+
+        String fileIn = "testIn";
+        String fileOut = "textOut";
 
         String[] arrayString = {"Hola","Neru"};
 
@@ -60,6 +64,8 @@ public class Main {
         recorrerArrayList(arrayListSinNumPar);
         System.out.println("----------------------------------------------------");
         System.out.println(dividirPorCero(5));
+        System.out.println("----------------------------------------------------");
+        copy(fileIn,fileOut);
 
 
 
@@ -136,7 +142,17 @@ public class Main {
 
         return result;
     }
-    public static void copyStream (InputStream fileIn , PrintStream fileOut){
-        
+    public static void copy(String fileIn, String fileOut) {
+        try {
+            InputStream in = new FileInputStream(fileIn);
+            byte[] datos = in.readAllBytes();
+            in.close();
+
+            PrintStream out = new PrintStream(fileOut);
+            out.write(datos);
+            out.close();
+        } catch (Exception e) {
+            System.out.println("Excepcion: " + e.getMessage());
+        }
     }
 }
